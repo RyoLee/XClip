@@ -20,6 +20,6 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $REPO_NAME/$IMAGE_NAME:$TAG
     - name: Log into registry
-      run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u REPO_NAME --password-stdin
+      run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u $REPO_NAME --password-stdin
     - name: Push image
       run: docker push $REPO_NAME/$IMAGE_NAME:$TAG
