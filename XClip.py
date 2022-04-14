@@ -36,7 +36,12 @@ def clean_pool():
 
 
 @app.route("/", methods=["post", "get"])
-def usage():
+def home_page():
+    return redirect("https://github.com/RyoLee/XClip")
+
+
+@app.errorhandler(404)
+def resource_not_found(e):
     return redirect("https://github.com/RyoLee/XClip")
 
 
@@ -65,7 +70,7 @@ def set_value(id):
             else:
                 lock = threading.Lock()
                 datapool[id] = (value, lock, tn)
-            return ('', 204)
+            return ("", 204)
 
 
 @app.route("/<id>", methods=["get"])
@@ -82,7 +87,7 @@ def get_value(id):
                 v, l, t = datapool[id]
                 return v
             else:
-                return ('', 204)
+                return ("", 204)
 
 
 cp = ConfigParser()
