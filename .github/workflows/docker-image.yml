@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  # 设置 docker 镜像名
+  REPO_NAME: ryosetsu
+  IMAGE_NAME: xclip
+  TAG: latest
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag $REPO_NAME/$IMAGE_NAME:$TAG
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u REPO_NAME --password-stdin
+    - name: Push image
+      run: docker push $REPO_NAME/$IMAGE_NAME:$TAG
