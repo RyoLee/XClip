@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
 import hashlib
@@ -23,4 +23,5 @@ if __name__ == "__main__":
         "INSERT INTO USERS(id,name,passowrd,flag) VALUES (?,?,?,1)",
         [un_hash, username, pw_hash],
     )
+    conn.commit()
     conn.close()

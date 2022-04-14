@@ -45,7 +45,7 @@ def ping():
     return "pong"
 
 
-@app.route("/<id>", methods=["post"])
+@app.route("/set/<id>", methods=["post"])
 def setValue(id):
     if id not in users:
         abort(403)
@@ -67,7 +67,7 @@ def setValue(id):
                 datapool[id] = (value, lock, tn)
 
 
-@app.route("/<id>", methods=["get"])
+@app.route("/get/<id>", methods=["post", "get"])
 def getValue(id):
     if id not in users:
         abort(403)
