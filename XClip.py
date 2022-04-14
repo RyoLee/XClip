@@ -70,7 +70,7 @@ def set_value(id):
             else:
                 lock = threading.Lock()
                 datapool[id] = (value, lock, tn)
-            return ("", 204)
+            return "done"
 
 
 @app.route("/<id>", methods=["get"])
