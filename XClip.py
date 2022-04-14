@@ -56,7 +56,7 @@ def set_value(id):
         abort(403)
     else:
         username, password = users[id]
-        pw = request.form.to_dict()["password"]
+        pw = request.headers.get("password")
         value = request.form.to_dict()["value"]
         if password.casefold() != pw.casefold():
             abort(403)
@@ -79,7 +79,7 @@ def get_value(id):
         abort(403)
     else:
         username, password = users[id]
-        pw = request.form.to_dict()["password"]
+        pw = request.headers.get("password")
         if password.casefold() != pw.casefold():
             abort(403)
         else:
