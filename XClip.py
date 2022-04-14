@@ -45,8 +45,8 @@ def ping():
     return "pong"
 
 
-@app.route("/set/<id>", methods=["post"])
-def setValue(id):
+@app.route("/<id>", methods=["post"])
+def set_value(id):
     if id not in users:
         abort(403)
     else:
@@ -65,10 +65,11 @@ def setValue(id):
             else:
                 lock = threading.Lock()
                 datapool[id] = (value, lock, tn)
+            return ('', 204)
 
 
-@app.route("/get/<id>", methods=["post", "get"])
-def getValue(id):
+@app.route("/<id>", methods=["get"])
+def get_value(id):
     if id not in users:
         abort(403)
     else:
@@ -81,7 +82,7 @@ def getValue(id):
                 v, l, t = datapool[id]
                 return v
             else:
-                return ""
+                return ('', 204)
 
 
 cp = ConfigParser()
