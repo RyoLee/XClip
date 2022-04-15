@@ -55,10 +55,10 @@ def set_value(id):
     if id not in users:
         abort(403)
     else:
-        username, password = users[id]
-        pw = request.headers.get("password")
+        username, pw_hash = users[id]
+        token = request.headers.get("token").casefold()
         value = request.form.to_dict()["value"]
-        if password.casefold() != pw.casefold():
+        if token not in get_tokens(pw_hash.casefold()):
             abort(403)
         else:
             tn = int(time.time())
@@ -78,9 +78,9 @@ def get_value(id):
     if id not in users:
         abort(403)
     else:
-        username, password = users[id]
-        pw = request.headers.get("password")
-        if password.casefold() != pw.casefold():
+        username, pw_hash = users[id]
+        token = request.headers.get("token").casefold()
+        if token not in get_tokens(pw_hash.casefold()):
             abort(403)
         else:
             if id in datapool:
@@ -88,6 +88,15 @@ def get_value(id):
                 return v
             else:
                 return ("", 204)
+
+
+def get_tokens(pw_hash):
+    tokens = []
+    ts = int(time.time())
+    tokens.append(get_md5(pw_hash + str(ts % 10 - 1)).casefold())
+    tokens.append(get_md5(pw_hash + str(ts % 10)).casefold())
+    tokens.append(get_md5(pw_hash + str(ts % 10 + 1)).casefold())
+    return tokens
 
 
 cp = ConfigParser()
