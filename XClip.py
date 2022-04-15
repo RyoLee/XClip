@@ -93,6 +93,7 @@ def get_value(id):
 def get_tokens(pw_hash):
     tokens = []
     ts = int(time.time())
+    salt = (ts - ts % 10) / 10
     tokens.append(get_md5(pw_hash + str(ts % 10 - 1)).casefold())
     tokens.append(get_md5(pw_hash + str(ts % 10)).casefold())
     tokens.append(get_md5(pw_hash + str(ts % 10 + 1)).casefold())
