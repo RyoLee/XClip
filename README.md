@@ -5,7 +5,7 @@ Usage:
   docker run -p 8080:8080 -v /opt/config:/config --name xclip -d ryosetsu/xclip
   ```
 - Add user 
-  - by AddUser.py script ( *It's not packed in the image,use wget/curl/docker cp/volume to send it in the container* )
+  - by AddUser.py script ( *It's not packed in the image,use wget/curl/docker cp/volume to send it in to the container* )
     ```bash
     AddUser.py [username] [password]
     ```
